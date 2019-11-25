@@ -1130,12 +1130,12 @@ impl DB {
 
     /// Opens an iterator using the provided ReadOptions.
     /// This is used when you want to iterate over a specific ColumnFamily with a modified ReadOptions
-    pub fn iterator_cf_opt(
-        &self,
+    pub fn iterator_cf_opt<'a, 'b: 'a>(
+        &'a self,
         cf_handle: &ColumnFamily,
         readopts: &ReadOptions,
         mode: IteratorMode,
-    ) -> Result<DBIterator, Error> {
+    ) -> Result<DBIterator<'b>, Error> {
         DBIterator::new_cf(self, cf_handle, &readopts, mode)
     }
 
